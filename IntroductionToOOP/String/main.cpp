@@ -202,7 +202,28 @@ void main()
 	cout << str << endl;
 #endif // ISTREAM_OPERATOR
 
+
+	String str1;		//Default constructor
+	str1.info();
+
+	String str2(8);		//Single-argument constructor ('int') 8 - размер строки в Байтах;
+	str2.info();
+
+	String str3 = "Hello";	//Single-argumentconstructor ('const char*');
+	str3.info();
+
+	cout << typeid("Hello").name() << endl;
+
+	String str4();// пустые круглые скобки не делают явный вызов конструктора, работает как объявление функции 
+	              //Если нужно явно вызвать конструктор нужны {} скобки
+	String str(8);	//Создается строка 8 байт
+	String str{ 8 };//Создается строка 8 байт, т.е. ,{} вызывает конструктор
+	String str7{};  //явный вызов конструктора
+	//!!!!!!!!!!!!!!  {} СЛЕДУЕТ ИСПОЛЬЗОВАТЬ С ОСТОРОЖНОСТЬЮ  !!!!!!!!!!!!
 	
+	String str9 = str3; // Колструктор копирования
+
+
 }
 
 
