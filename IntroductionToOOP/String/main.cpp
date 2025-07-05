@@ -233,7 +233,7 @@ void main()
 
 /*
 ---------------------------------
-C++11 MoveSemantic:
+C++11 MoveSemantic:    
 MoveConstructor - Конструктор переноса;
 MoveAssignment  - Переносящий оператор присваивания;
 Move-методы принимают r-value reference: Class&&
