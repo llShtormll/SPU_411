@@ -28,40 +28,40 @@ public:
 	}
 
 	//				Constructors:
-	explicit String(int size = 80)
+	explicit String(int size = 80):size(size),str(new char[this->size]{})
 	{
-		this->size = size;
-		this->str = new char[size] {};
+		//this->size = size;
+		//this->str = new char[size] {};
 #ifdef DEBUG
 		cout << "DefaultConstructor:\t" << this << endl;
 #endif // DEBUG
 	}
-	String(const char str[])
+	String(const char str[]) :size(strlen(str) + 1),str(new char[size] {})
 	{
-		size = 0;
-		while (str[size++]);
-		this->str = new char[size] {};
+		//size = 0;
+		//while (str[size++]);
+		//this->str = new char[size] {};
 		for (int i = 0; str[i]; i++)this->str[i] = str[i];
 #ifdef DEBUG
 		cout << "Constructor:\t\t" << this << endl;
 #endif // DEBUG
 	}
-	String(const String& other)
+	String(const String& other):size(other.size),str(new char[size]{})
 	{
 		//Конструктор копирования дожлен выполнять DeepCopy (Побитовое копирование),
 		//т.е. выделять динамическую память под объект и побитово (поэлементно)
 		//копировать содержимое динамической памяти из существующего объекта в создаваемый.
-		this->size = other.size;
-		this->str = new char[size] {};
+		//this->size = other.size;
+		//this->str = new char[size] {};
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 #ifdef DEBUG
 		cout << "CopyConstructor:\t" << this << endl;
 #endif // DEBUG
 	}
-	String(String&& other)
+	String(String&& other):size(other.size),str(other.str)
 	{
-		this->size = other.size;
-		this->str = other.str;
+		//this->size = other.size;
+		//this->str = other.str;
 		other.size = 0;
 		other.str = nullptr;	//Защищаем память от удаления деструктором.
 #ifdef DEBUG
@@ -155,13 +155,14 @@ std::istream& getline(std::istream& cin, String& obj)
 }
 
 //#define CONSTRUCTORS_CHECK
-//#define OPERATOR_PLUS
+#define OPERATOR_PLUS
 //#define ISTREAM_OPERATOR
-#define PERFORMANCE_TEST
+//#define PERFORMANCE_TEST
+//#define CALLING_CONSTRUCTORS
 
 void main()
 {
-	setlocale(LC_ALL, "");
+	setlocale(LC_ALL, "RU");
 
 #ifdef CONSTRUCTORS_CHECK
 	String str1(5);	//explicit-конструктор нельзя вызвать оператором '=', но всегда можно вызвать при помощи круглых скобок
@@ -203,6 +204,7 @@ void main()
 #endif // ISTREAM_OPERATOR
 
 
+#ifdef CALLING_CONSTRUCTORS
 	String str1;		//Default constructor
 	str1.info();
 
@@ -215,14 +217,16 @@ void main()
 	cout << typeid("Hello").name() << endl;
 
 	String str4();// пустые круглые скобки не делают явный вызов конструктора, работает как объявление функции 
-	              //Если нужно явно вызвать конструктор нужны {} скобки
-	String str(8);	//Создается строка 8 байт
-	String str{ 8 };//Создается строка 8 байт, т.е. ,{} вызывает конструктор
+	//Если нужно явно вызвать конструктор нужны {} скобки
+	String str5(8);	//Создается строка 8 байт
+	String str6{ 8 };//Создается строка 8 байт, т.е. ,{} вызывает конструктор
 	String str7{};  //явный вызов конструктора
 	//!!!!!!!!!!!!!!  {} СЛЕДУЕТ ИСПОЛЬЗОВАТЬ С ОСТОРОЖНОСТЬЮ  !!!!!!!!!!!!
-	
-	String str9 = str3; // Колструктор копирования
 
+	String str9 = str3; // Колструктор копирования
+	str9.info();
+
+#endif // CALLING_CONSTRUCTORS
 
 }
 
